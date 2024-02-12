@@ -63,33 +63,28 @@ architecture test_bench of top_basys3_tb is
       sw        :    in  std_logic_vector(2 downto 0);
               
        -- LEDs
-      led       :    out    std_logic_vector(1 downto 0)   -- TODO
+      led       :    out  std_logic_vector(1 downto 0)   -- TODO
       );
   end component;
   
  
 	-- declare signals needed to stimulate the UUT inputs
-	signal w_sw0 : std_logic := '0';
-	signal w_sw1 : std_logic := '0';
-	signal w_sw2 : std_logic := '0';
-    signal w_led0 : std_logic := '0';
-    signal w_led1 : std_logic := '0';
 	   -- TODO
 	-- finish declaring needed signals
 	signal w_sw : std_logic_vector (2 downto 0):= (others=> '0');
-	signal led : std_logic_vector(1 downto 0):= (others=> '0');
+	signal w_led : std_logic_vector(1 downto 0):= (others=> '0');
 begin
 	-- PORT MAPS ----------------------------------------
 	-- You must create the port map for your top_basys3.
 	-- Look at your old test benches if you are unsure what to do
 	-----------------------------------------------------
 	top_basys3_inst : top_basys3 port map (
-	   sw(0) => w_sw0,
-	   sw(1) => w_sw1,
-	   sw(2) => w_sw2,
+	   sw(0) => w_sw(0),
+	   sw(1) => w_sw(1),
+	   sw(2) => w_sw(2),
 	  
-	   led(0) => w_led0,
-	   led(1) => w_led1
+	   led(0) => w_led(0),
+	   led(1) => w_led(1)
 	   
 	);
 	-- PROCESSES ----------------------------------------	
@@ -99,21 +94,21 @@ begin
 	begin
 	
 	    w_sw <= "000"; wait for 10 ns;
-		  assert w_led = "00" report "bad 000" severity failure;
+		  assert w_led = "00" report "bad 000" severity error;
         w_sw <= "001"; wait for 10 ns;
-          assert w_led = "01" report "bad 001" severity failure;
+          assert w_led = "01" report "bad 000" severity error;
         w_sw <= "010"; wait for 10 ns;
-          assert w_led = "01" report "bad 010" severity failure;
+          assert w_led = "01" report "bad 000" severity error;
 	    w_sw <= "011"; wait for 10 ns;
-          assert w_led = "10" report "bad 011" severity failure;
+          assert w_led = "10" report "bad 000" severity error;
 	    w_sw <= "100"; wait for 10 ns;
-          assert w_led = "01" report "bad 100" severity failure;
+          assert w_led = "01" report "bad 000" severity error;
 	    w_sw <= "101"; wait for 10 ns;
-          assert w_led = "10" report "bad 101" severity failure;
+          assert w_led = "10" report "bad 000" severity error;
         w_sw <= "110"; wait for 10 ns;
-          assert w_led = "10" report "bad 110" severity failure;
+          assert w_led = "10" report "bad 000" severity error;
         w_sw <= "111"; wait for 10 ns;
-          assert w_led = "11" report "bad 111" severity failure;
+          assert w_led = "11" report "bad 000" severity error;
 	    --You must fill in the remaining test cases.	
 	
 		wait; -- wait forever
